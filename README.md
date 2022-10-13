@@ -1,0 +1,1 @@
+Ruby on Rails (Rails 7) tutorial from [learnenough.com](https://www.learnenough.com/ruby-on-rails-7th-edition)
