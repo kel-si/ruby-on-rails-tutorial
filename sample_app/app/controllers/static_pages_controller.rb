@@ -1,3 +1,4 @@
+# StaticPagesController inherits from ApplicationController
 class StaticPagesController < ApplicationController
   def home
   end
