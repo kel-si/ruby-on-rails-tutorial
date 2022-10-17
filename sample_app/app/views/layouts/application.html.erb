@@ -4,15 +4,16 @@
     <title><%= yield(:title) %> | Ruby on Rails Tutorial Sample App</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    # Content Sercurity Policy (CSP) to mitigate cross-site scripting attacks and Cross-Site Request Forgery (CSRF)
+    <%# ----Content Sercurity Policy (CSP) to mitigate cross-site scripting attacks and Cross-Site Request Forgery (CSRF)---- %>
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    #Includes application stylesheet - part of the asset pipeline
+    <%# ----Includes application stylesheet - part of the asset pipeline---- %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   </head>
 
   <body>
-    #Responsible for inserting contents of each page into the layout
+    <%# ----Responsible for inserting contents of each page into the layout---- %>
     <%= yield %>
   </body>
 </html>
