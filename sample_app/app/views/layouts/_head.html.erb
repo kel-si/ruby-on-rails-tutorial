@@ -1,0 +1,14 @@
+<head>
+    <title><%= full_title(yield(:title)) %> </title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%###Content Sercurity Policy (CSP) to mitigate cross-site scripting attacks and Cross-Site Request Forgery (CSRF)%>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%###Includes application stylesheet - part of the asset pipeline
+
+    #stylesheet_link_tag is a function call with two arguments: a string indicating filepath to stylesheet and a hash with with one element with configuration for Turbo
+
+    # "data-turbo-track": "reload" is a hash / key-value pair%>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= render 'layouts/shim' %>
+  </head>
