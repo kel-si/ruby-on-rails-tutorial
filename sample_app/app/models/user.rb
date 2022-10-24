@@ -10,5 +10,5 @@ class User < ApplicationRecord
     # adds ability to save hashed password to db
     # pair of virtual attritbutes (password and password_confirmation) including presence validation upon object creation as well as validation for matching
     # authenticate method that returns user when password is correct (else returns false)
-    # has_secure_password
+    has_secure_password
 end
