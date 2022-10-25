@@ -10,6 +10,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      # @user here is equivalent to user_url(@user)
+      redirect_to @user
     else
       # corresponds to HTTP status 422 Unprocessable Entry
       render 'new', status: :unprocessable_entity
