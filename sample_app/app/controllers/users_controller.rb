@@ -8,12 +8,11 @@ class UsersController < ApplicationController
   end
 
   def create
-    debugger
     @user = User.new(user_params)
     if @user.save
     else
       # corresponds to HTTP status 422 Unprocessable Entry
-      render 'new', status: :unprocessable_entry
+      render 'new', status: :unprocessable_entity
     end
   end
 
