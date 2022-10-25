@@ -21,4 +21,20 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     assert_select 'div#error_explanation'
     assert_select 'div.alert'
   end
+
+  test "valid signup information" do
+    get signup_path
+    assert_difference 'User.count' do
+      post users_path, params: {
+        user: {
+          name: "Alice",
+          email: "alice@example.com",
+          password: "123456",
+          password_confirmation: "123456"
+        }
+      }
+    end
+    follow_redirect!
+    assert_template 'users/show'
+  end
 end
