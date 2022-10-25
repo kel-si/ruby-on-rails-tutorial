@@ -8,11 +8,19 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params[:user]) # not the final version (bad)
+    debugger
+    @user = User.new(user_params)
     if @user.save
     else
       # corresponds to HTTP status 422 Unprocessable Entry
       render 'new', status: :unprocessable_entry
     end
   end
+
+  private
+
+    def user_params
+    params.require(:user).permit(:name, :email, :password,
+                                                  :password_confirmation)
+    end
 end
