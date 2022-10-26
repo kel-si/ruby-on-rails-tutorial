@@ -3,10 +3,12 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  # for a GET request
   def new
     @user = User.new
   end
 
+  # for a POST request
   def create
     @user = User.new(user_params)
     if @user.save
