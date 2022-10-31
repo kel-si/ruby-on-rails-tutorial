@@ -4,7 +4,8 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(email: params[:session][:email].downcase)
-    if user && user.authenticate(params[:session][:password])
+    # &. is "safe navigation" operator
+    if user&.authenticate(params[:session][:password])
       # clear session to prevent session fixation prior to log in
       reset_session
       log_in user
