@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     if user&.authenticate(params[:session][:password])
       # clear session to prevent session fixation prior to log in
       reset_session
-      remember user
+      params[:session][:remember_me] == '1' ? remember(user) : forget(user)
       log_in user
       redirect_to user
     else
