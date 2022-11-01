@@ -23,6 +23,11 @@ class UsersController < ApplicationController
     end
   end
 
+  # still a GET request (update would be PATCH)
+  def edit
+    @user = User.find(params[:id])
+  end
+
   private
 
     def user_params
