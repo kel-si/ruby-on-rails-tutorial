@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+    # creates an accessible attribute (for storage in the cookies but not in the database)
     attr_accessor :remember_token
 
     # callback to downcase email before being saved to db
@@ -18,19 +19,25 @@ class User < ApplicationRecord
 
     # returns the hash digest of the given string
     # attaching digest to User class itself makes it a class method
-    def User.digest string
+    # self here refers to the User class
+    # instead of using self in the method definitions, could use:
+    # class << self to wrap digest and new_token methods
+    def self.digest string
         cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
 
         BCrypt::Password.create string, cost: cost
     end
 
-    # returns a random token
-    def User.new_token
+    # returns a token (random string)
+    def self.new_token
         SecureRandom.urlsafe_base64
     end
 
+    # storing a hash digest of remember token
     def remember
+        # here self refers to the user object instance
         self.remember_token = User.new_token
+        # storing hash in the database under remember_digest
         update_attribute(:remember_digest, User.digest(remember_token))
     end
 end
