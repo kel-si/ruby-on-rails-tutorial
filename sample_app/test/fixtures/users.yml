@@ -2,6 +2,7 @@ frosty:
   name: FROSTY FROSTERTON
   email: frosters@fake.com
   password_digest: <%= User.digest 'password' %>
+  admin: true
 
 daisy:
   name: DAISY DAY
