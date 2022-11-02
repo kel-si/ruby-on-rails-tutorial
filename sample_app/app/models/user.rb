@@ -14,7 +14,7 @@ class User < ApplicationRecord
     # pair of virtual attritbutes (password and password_confirmation) including presence validation upon object creation as well as validation for matching
     # authenticate method that returns user when password is correct (else returns false)
     has_secure_password
-    validates :password, presence: true, length: { minimum: 6 }
+    validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
 
     # returns the hash digest of the given string
