@@ -6,11 +6,12 @@ class SessionsController < ApplicationController
     @user = User.find_by(email: params[:session][:email].downcase)
     # &. is "safe navigation" operator
     if @user && @user&.authenticate(params[:session][:password])
-      # clear session to prevent session fixation prior to log in
+      forwarding_url = session[:forwarding_url]
+      # clear session inc forwarding_url to prevent session fixation prior to log in
       reset_session
       params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
       log_in @user
-      redirect_to @user
+      redirect_to forwarding_url || @user
     else
       # create error message
       flash.now[:danger] = "Invalid email/password combination🤚"
