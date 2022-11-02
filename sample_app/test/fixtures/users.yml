@@ -1,4 +1,9 @@
 frosty:
-  name: FROSTY Example
+  name: FROSTY FROSTERTON
   email: frosters@fake.com
+  password_digest: <%= User.digest 'password' %>
+
+daisy:
+  name: DAISY DAY
+  email: daisy@fake.com
   password_digest: <%= User.digest 'password' %>

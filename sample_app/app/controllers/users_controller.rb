@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   # by default, before filters apply to all controller actions
   # here we have limited filter to act on only edit and update
   before_action :logged_in_user, only: [:edit, :update]
+  before_action :correct_user, only: [:edit, :update]
 
   def show
     @user = User.find(params[:id])
@@ -49,10 +50,19 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
       end
 
+      # before filters:
+
+      # confirms logged in user
       def logged_in_user
         unless logged_in?
           flash[:danger] = "Please log in 🐝"
           redirect_to login_path, status: :see_other
         end
+      end
+
+      # confirms correct user
+      def correct_user
+        @user = User.find(params[:id])
+        redirect_to(root_url, status: :see_other) unless @user == current_user
       end
 end
