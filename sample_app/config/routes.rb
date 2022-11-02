@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
+
   # all actions needed for RESTful Users resource & a number of named routes
   resources :users
+
+  # only need one route (GET request, URL: /account_activation/<token>/edit, Named Route: edit_account_activation_url(token))
+  resources :account_activations, only: [:edit]
 end
