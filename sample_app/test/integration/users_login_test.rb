@@ -1,7 +1,7 @@
 require "test_helper"
 
 class UsersLogin < ActionDispatch::IntegrationTest
-
+    # good rule of thumb to encapsulate setup methods in classes that don't end in test
     def setup
         @user = users(:frosty)
     end
@@ -27,6 +27,7 @@ end
 class ValidLogin < UsersLogin
 
     def setup
+        # arranges to call the setup method of the base class (UsersLogin) to access the @user variable
         super
         post login_path, params: { session: { email: @user.email, password: 'password' } }
     end
@@ -88,6 +89,6 @@ class RememberingTest < UsersLogin
         # log in to set the cookie (to make sure it is forgotten)
         log_in_as(@user, remember_me: '1')
         log_in_as(@user, remember_me: '0')
-        assert_empty cookies[:remember_token]
+        assert cookies[:remember_token].blank?
     end
 end
