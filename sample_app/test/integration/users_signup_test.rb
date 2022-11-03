@@ -1,9 +1,16 @@
 require "test_helper"
 
-class UsersSignupTest < ActionDispatch::IntegrationTest
+class UsersSignup < ActionDispatch::IntegrationTest
+  
+  # deliveries is a global array and needs to be reset to prevent code from breaking if any other tests deliver email
+  def setup
+    ActionMailer::Base.deliveries.clear
+  end
+end
+
+class UsersSignupTest < UsersSignup
+
   test "invalid signup information" do
-    # technically unnecessary but adds conceptual clarity and to double-check
-    get signup_path
     # check User.count before and after signup to make sure an invalid user was not created
     assert_no_difference 'User.count' do
       post users_path, params: {
@@ -19,12 +26,11 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
     assert_template 'users/new'
     assert_select 'div#error_explanation'
-    assert_select 'div.alert'
+    assert_select 'div.field_with_errors'
   end
 
-  test "valid signup information" do
-    get signup_path
-    assert_difference 'User.count' do
+  test "valid signup information with account activation" do
+    assert_difference 'User.count', 1 do
       post users_path, params: {
         user: {
           name: "Alice",
@@ -34,9 +40,43 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
         }
       }
     end
+    assert_equal 1, ActionMailer::Base.deliveries.size
+  end
+end
+
+class AccountActivationTest < UsersSignup
+
+  def setup
+    super
+    post users_path, params: { user: { name: "Example User", email: "user@example.com", password: "password", password_confirmation: "password" } }
+    # assigns lets us access instance variables in corresponding action
+    @user = assigns(:user)
+  end
+
+  test "should not be activated" do
+    assert_not @user.activated?
+  end
+
+  test "should not be able to log in before account activation" do
+    log_in_as(@user)
+    assert_not is_logged_in?
+  end
+
+  test "should not be able to log in with invalid activation token" do
+    get edit_account_activation_path("invalid token", email: @user.email)
+    assert_not is_logged_in?
+  end
+ 
+  test "should not be able to log in with invalid email" do
+    get edit_account_activation_path(@user.activation_token, email: 'wrong')
+    assert_not is_logged_in?
+  end
+
+  test "should log in successfully with valid activation token and email" do
+    get edit_account_activation_path(@user.activation_token, email: @user.email)
+    assert @user.reload.activated?
     follow_redirect!
-    assert_template 'static_pages/home'
-    # # call test_helper method
-    # assert is_logged_in?
+    assert_template 'users/show'
+    assert is_logged_in?
   end
 end
