@@ -37,7 +37,7 @@ class User < ApplicationRecord
     def remember
         # here self refers to the user object instance
         self.remember_token = User.new_token
-        # storing hash in the database under remember_digest
+        # storing hash in the database under remember_digest (.digest is hash function)
         update_attribute(:remember_digest, User.digest(remember_token))
         remember_digest
     end
@@ -48,10 +48,11 @@ class User < ApplicationRecord
         remember_digest || remember
     end
 
-    # returns true if the given token (saved in browser) matches the digest
-    def authenticated? remember_token
-        return false if remember_digest.nil?
-        BCrypt::Password.new(remember_digest).is_password?(remember_token)
+    # generalized authenticated method
+    def authenticated? attribute, token
+        digest = self.send("#{attribute}_digest")
+        return false if digest.nil?
+        BCrypt::Password.new(digest).is_password?(token)
     end
 
     # forgets a user

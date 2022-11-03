@@ -35,8 +35,8 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
       }
     end
     follow_redirect!
-    assert_template 'users/show'
-    # call test_helper method
-    assert is_logged_in?
+    assert_template 'static_pages/home'
+    # # call test_helper method
+    # assert is_logged_in?
   end
 end
