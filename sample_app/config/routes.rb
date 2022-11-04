@@ -13,4 +13,7 @@ Rails.application.routes.draw do
 
   # only need one route (GET request, URL: /account_activation/<token>/edit, Named Route: edit_account_activation_url(token))
   resources :account_activations, only: [:edit]
+
+  # GET requests for new and edit, POST for create, and PATCH for update
+  resources :password_resets, only: [:new, :create, :edit, :update]
 end
