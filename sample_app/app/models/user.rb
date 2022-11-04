@@ -21,14 +21,14 @@ class User < ApplicationRecord
     # self here refers to the User class
     # instead of using self in the method definitions, could use:
     # class << self to wrap digest and new_token methods
-    def self.digest string
+    def User.digest string
         cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
 
         BCrypt::Password.create string, cost: cost
     end
 
     # returns a token (random string)
-    def self.new_token
+    def User.new_token
         SecureRandom.urlsafe_base64
     end
 
