@@ -1,5 +1,7 @@
 class User < ApplicationRecord
-    has_many :microposts
+    # destroy associated microposts if user is destroyed
+    has_many :microposts, dependent: :destroy
+
     # creates an accessible attribute (for storage in the cookies but not in the database)
     attr_accessor :remember_token, :activation_token, :reset_token
 
@@ -15,7 +17,6 @@ class User < ApplicationRecord
     # authenticate method that returns user when password is correct (else returns false)
     has_secure_password
     validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
-
 
     # returns the hash digest of the given string
     # attaching digest to User class itself makes it a class method
