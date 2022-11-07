@@ -13,6 +13,21 @@ reputation:
   created_at: <%= 5.years.ago %>
   user: frosty
 
+lover:
+  content: "Miss Americana & The Heartbreak Prince💘"
+  created_at: <%= 3.years.ago %>
+  user: daisy
+
+speak_now:
+  content: "Sparks Fly💜"
+  created_at: <%= 2.days.ago %>
+  user: daisy
+
+red:
+  content: "The Lucky One🧣"
+  created_at: <%= 10.minutes.ago %>
+  user: daisy
+
 most_recent:
   content: "Midnights🕰"
   created_at: <%= Time.zone.now %>
