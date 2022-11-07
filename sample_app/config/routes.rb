@@ -16,4 +16,6 @@ Rails.application.routes.draw do
 
   # GET requests for new and edit, POST for create, and PATCH for update
   resources :password_resets, only: [:new, :create, :edit, :update]
+
+  resources :microposts, only: [:create, :destroy]
 end
