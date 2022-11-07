@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+    has_many :microposts
     # creates an accessible attribute (for storage in the cookies but not in the database)
     attr_accessor :remember_token, :activation_token, :reset_token
 
