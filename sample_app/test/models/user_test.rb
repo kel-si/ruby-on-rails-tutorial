@@ -89,7 +89,7 @@ class UserTest < ActiveSupport::TestCase
     frosty.follow(daisy)
     assert frosty.following?(daisy)
     frosty.unfollow(daisy)
-    assert_not frosty.following(daisy)
+    assert_not frosty.following?(daisy)
     frosty.follow(frosty)
     assert_not frosty.following?(frosty)
   end
