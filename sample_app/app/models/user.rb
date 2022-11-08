@@ -2,7 +2,11 @@ class User < ApplicationRecord
     # destroy associated microposts if user is destroyed
     has_many :microposts, dependent: :destroy
     has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+    has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
     has_many :following, through: :active_relationships, source: :followed
+    # could omit source (has_many :followers, through: :passive_relationships)
+    # due to Rails singularizing followers to look for FK follower_id
+    has_many :followers, through: :passive_relationships, source: :follower
 
     # creates an accessible attribute (for storage in the cookies but not in the database)
     attr_accessor :remember_token, :activation_token, :reset_token
