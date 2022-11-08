@@ -28,6 +28,11 @@ red:
   created_at: <%= 10.minutes.ago %>
   user: daisy
 
+fearless:
+  content: "The Other Side Of The Door💛"
+  created_at: <%= 8.months.ago %>
+  user: katie
+
 most_recent:
   content: "Midnights🕰"
   created_at: <%= Time.zone.now %>
