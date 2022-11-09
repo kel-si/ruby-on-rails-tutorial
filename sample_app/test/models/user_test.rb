@@ -108,6 +108,7 @@ class UserTest < ActiveSupport::TestCase
     #self-posts for a user with followers
     frosty.microposts.each do |post_self|
       assert frosty.feed.include?(post_self)
+      assert_equal frosty.feed.distinct, frosty.feed
     end
 
     #posts from non-followed user
