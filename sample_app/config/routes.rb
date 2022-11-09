@@ -9,7 +9,12 @@ Rails.application.routes.draw do
   delete "/logout", to: "sessions#destroy"
 
   # all actions needed for RESTful Users resource & a number of named routes
-  resources :users
+  resources :users do
+    # member arranges for routes to respond to URLs containing the user id
+    member do
+      get :following, :followers
+    end
+  end
 
   # only need one route (GET request, URL: /account_activation/<token>/edit, Named Route: edit_account_activation_url(token))
   resources :account_activations, only: [:edit]
