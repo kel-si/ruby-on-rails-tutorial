@@ -22,4 +22,16 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
     end
     assert_select 'div.pagination', count: 1
   end
+
+  test "correct following stats appear on home page" do
+    log_in_as(@user)
+    get root_url
+    assert_match @user.following.count.to_s, response.body
+  end
+
+  test "correct followed stats appear on home page" do
+    log_in_as(@user)
+    get root_url
+    assert_match @user.followers.count.to_s, response.body
+  end
 end
