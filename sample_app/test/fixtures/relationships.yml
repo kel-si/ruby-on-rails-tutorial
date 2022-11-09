@@ -1,1 +1,15 @@
-#empty
+one:
+  follower: frosty
+  followed: katie
+
+two:
+  follower: frosty
+  followed: jo
+
+one:
+  follower: katie
+  followed: frosty
+
+one:
+  follower: daisy
+  followed: frosty
