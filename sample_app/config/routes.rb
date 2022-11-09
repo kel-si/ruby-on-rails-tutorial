@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :users do
     # member arranges for routes to respond to URLs containing the user id
     member do
+      # /users/:id/following & /users/:id/followers
       get :following, :followers
     end
   end
