@@ -94,6 +94,27 @@ class UserTest < ActiveSupport::TestCase
     frosty.follow(frosty)
     assert_not frosty.following?(frosty)
   end
+
+  test "feed should have the correct posts" do
+    frosty = users(:frosty)
+    daisy = users(:daisy)
+    katie = users(:katie)
+
+    #posts from a followed user
+    katie.microposts.each do |post_following|
+      assert frosty.feed.include?(post_following)
+    end
+
+    #self-posts for a user with followers
+    frosty.microposts.each do |post_self|
+      assert frosty.feed.include?(post_self)
+    end
+
+    #posts from non-followed user
+    daisy.microposts.each do |post_unfollowed|
+      assert_not frosty.feed.include?(post_unfollowed)
+    end
+  end
 end
 
 

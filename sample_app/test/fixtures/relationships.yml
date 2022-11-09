@@ -6,10 +6,10 @@ two:
   follower: frosty
   followed: jo
 
-one:
+three:
   follower: katie
   followed: frosty
 
-one:
+four:
   follower: daisy
   followed: frosty
